@@ -1,0 +1,19 @@
+.app-header {
+  height: 50px;
+  background: rgb(0, 209, 0);
+  box-shadow: 0px 2px 3px 0px lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  mat-icon {
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+.app-container {
+  width: 800px;
+  height: calc(100% - 50px);
+  margin: 0 auto;
+  overflow: hidden auto;
+}

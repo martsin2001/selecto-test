@@ -1,0 +1,14 @@
+.user-container {
+  padding: 15px;
+  .info-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 15px 0px;
+    .key {
+      margin-right: 10px;
+    }
+    .value {
+      color: rgb(0, 110, 255);
+    }
+  }
+}

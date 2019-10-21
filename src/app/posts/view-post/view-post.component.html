@@ -1,0 +1,21 @@
+<div class="post-container" *ngIf="post | async as post">
+  <div class="info-container">
+    <div class="key">Post Title:</div>
+    <div class="value">{{ post.title }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Post Body:</div>
+    <div class="value">{{ post.body }}</div>
+  </div>
+</div>
+
+<div class="comments-container">
+  <div class="title">Comments:</div>
+  <div
+    class="comment-container"
+    *ngFor="let comment of comments | async; trackBy: comment?.id"
+  >
+    <div class="info"><span>Name:</span> {{ comment.name }}</div>
+    <div class="info"><span>Text:</span> {{ comment.body }}</div>
+  </div>
+</div>

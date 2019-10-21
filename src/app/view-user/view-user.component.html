@@ -1,0 +1,54 @@
+<div class="user-container" *ngIf="user | async as user">
+  <div class="info-container">
+    <div class="key">User Id:</div>
+    <div class="value">{{ user.id }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Name:</div>
+    <div class="value">{{ user.name }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Username:</div>
+    <div class="value">{{ user.username }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Email:</div>
+    <div class="value">{{ user.email }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Street:</div>
+    <div class="value">{{ user.address.street }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Suite:</div>
+    <div class="value">{{ user.address.suite }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">City:</div>
+    <div class="value">{{ user.address.city }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Zipcode:</div>
+    <div class="value">{{ user.address.zipcode }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Phone:</div>
+    <div class="value">{{ user.phone }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Website:</div>
+    <div class="value">{{ user.website }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Company Name:</div>
+    <div class="value">{{ user.company.name }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Company Catch Phrase:</div>
+    <div class="value">{{ user.company.catchPhrase }}</div>
+  </div>
+  <div class="info-container">
+    <div class="key">Company BS:</div>
+    <div class="value">{{ user.company.bs }}</div>
+  </div>
+</div>

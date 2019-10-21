@@ -1,0 +1,19 @@
+<ng-container *ngFor="let post of viewPosts | async; trackBy: post?.id">
+  <div class="post-container">
+    <div class="title">{{ post.title }}</div>
+    <div class="body">{{ post.body }}</div>
+    <div class="buttons-container">
+      <button
+        mat-raised-button
+        routerLinkActive="router-link-active"
+        color="primary"
+        (click)="goToPost(post.id)"
+      >
+        Go to post
+      </button>
+      <button mat-raised-button color="accent" (click)="goToUser(post.userId)">
+        Go to user
+      </button>
+    </div>
+  </div>
+</ng-container>
