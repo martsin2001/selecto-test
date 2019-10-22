@@ -1,28 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { PostsService } from 'src/app/core/services/posts.service';
-import { UsersService } from 'src/app/core/services/users.service';
-import { forkJoin, Observable } from 'rxjs';
-import { ViewPost, Post } from 'src/app/core/models/posts.interfaces';
-import { User } from 'src/app/core/models/user.interfaces';
-import { map } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Post } from 'src/app/core/models/posts.interfaces';
+import { PostsFacade } from 'src/app/redux/posts/posts.facade';
+import { tap, filter, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-view-posts',
   templateUrl: './view-posts.component.html',
   styleUrls: ['./view-posts.component.scss']
 })
-export class ViewPostsComponent implements OnInit {
-  viewPosts: Observable<any[]>;
+export class ViewPostsComponent implements OnInit, OnDestroy {
+  viewPosts: Post[];
 
-  constructor(
-    private router: Router,
-    private postsService: PostsService,
-    private usersService: UsersService
-  ) {}
+  private unsubscribe$: Subject<boolean> = new Subject();
+
+  constructor(private router: Router, private postsFacade: PostsFacade) {}
 
   ngOnInit() {
     this.loadPosts();
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe$.next(true);
+    this.unsubscribe$.complete();
   }
 
   goToPost(id: number) {
@@ -34,16 +35,18 @@ export class ViewPostsComponent implements OnInit {
   }
 
   private loadPosts() {
-    this.viewPosts = forkJoin([
-      this.usersService.getAllUsers() as Observable<User[]>,
-      this.postsService.getAllPosts() as Observable<Post[]>
-    ]).pipe(
-      map(([users, posts]) => {
-        return posts.map(post => {
-          const user = users.find(u => u.id === post.userId);
-          return { ...post, name: user.name };
-        });
-      })
-    );
+    this.postsFacade.posts$
+      .pipe(
+        tap(posts => {
+          if (!posts) {
+            this.postsFacade.loadPosts();
+          }
+        }),
+        filter(posts => !!posts),
+        takeUntil(this.unsubscribe$)
+      )
+      .subscribe(posts => {
+        this.viewPosts = posts;
+      });
   }
 }

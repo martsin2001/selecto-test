@@ -10,7 +10,7 @@ import { User } from '../core/models/user.interfaces';
   styleUrls: ['./view-user.component.scss']
 })
 export class ViewUserComponent implements OnInit {
-  user: Observable<User>;
+  user: User;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -18,11 +18,10 @@ export class ViewUserComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.loadPostById();
+    this.loadUser();
   }
 
-  private loadPostById() {
-    const { id } = this.activatedRoute.snapshot.queryParams;
-    this.user = this.usersService.loadUserById(id);
+  private loadUser() {
+    this.user = this.activatedRoute.snapshot.data.user;
   }
 }

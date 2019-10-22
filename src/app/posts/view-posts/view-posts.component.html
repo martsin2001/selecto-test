@@ -1,4 +1,4 @@
-<ng-container *ngFor="let post of viewPosts | async; trackBy: post?.id">
+<ng-container *ngFor="let post of viewPosts; trackBy: post?.id">
   <div class="post-container">
     <div class="title">{{ post.title }}</div>
     <div class="body">{{ post.body }}</div>

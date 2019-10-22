@@ -10,25 +10,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./view-post.component.scss']
 })
 export class ViewPostComponent implements OnInit {
-  post: Observable<Post>;
-  comments: Observable<Comment[]>;
+  post: Post;
+  comments: Comment[];
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private postsService: PostsService
-  ) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
-    const { id } = this.activatedRoute.snapshot.queryParams;
-    this.loadPostById(id);
-    this.loadCommentsByPostId(id);
+    this.loadPostAndComments();
   }
 
-  private loadPostById(id: number) {
-    this.post = this.postsService.loadPostById(id);
-  }
-
-  private loadCommentsByPostId(id: number) {
-    this.comments = this.postsService.loadComments(id);
+  private loadPostAndComments() {
+    const [post, comments] = this.activatedRoute.snapshot.data.viewPostData as [
+      Post,
+      Comment[]
+    ];
+    this.post = post;
+    this.comments = comments;
   }
 }
